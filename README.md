@@ -6,7 +6,7 @@
 
 <div align="center">
   <h3>
-    <a href="https://facubravo.github.io/Device-Shop-Checkout/html/index.html">
+    <a href="https://facubravo.github.io/javascript-word-scramble/index.html">
       Solution
     </a>
     <span> | </span>

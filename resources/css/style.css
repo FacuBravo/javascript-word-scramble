@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+
+/* GENERAL */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+:root {
+    --black: #07071A;
+    --grey_500: #21293A;
+    --grey_400: #4A5466;
+    --grey_300: #97A3B7;
+    --purple: #7B2488;
+    --white: #F2F5F9;
+}
+
+body {
+    background-image: url(../images/bg-guess-the-word.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+main {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game {
+    background: linear-gradient(135deg, var(--black) 0%, var(--grey_500) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 16px;
+    padding: 24px;
+    height: 500px;
+    font-family: "Outfit", sans-serif;
+}
+
+#word_to_guess {
+    width: 400px;
+    height: 64px;
+    margin-top: 28px;
+    background-color: var(--grey_400);
+    color: var(--grey_300);
+    box-shadow: 0 4px var(--black);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    letter-spacing: 16px;
+    font-weight: 600;
+}
+
+#word_input {
+    margin-top: 56px;
+    display: flex;
+    gap: 8px;
+}
+
+.letter {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    color: var(--white);
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid var(--grey_400);
+}
+
+.letter_selected {
+    border-color: var(--purple);
+    position: relative;
+}
+
+.letter_selected:empty::after {
+    content: '';
+    position: absolute;
+    background-color: var(--white);
+    width: 16px;
+    height: 3px;
+    bottom: 23%;
+    left: calc(50% - 8px);
+    animation: twinkle 1s infinite;
+}
+
+@keyframes twinkle {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

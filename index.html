@@ -1,25 +1,51 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>javascript-word-scramble</title>
     <link rel="stylesheet" href="resources/css/style.css">
 </head>
+
 <body id="body">
 
     <main>
         <section class="game">
             <img src="resources/images/Word Scramblle.svg" alt="Title">
+            
             <div id="word_to_guess"></div>
+
+            <article class="state_data">
+                <div class="tries_container">
+                    <p>Tries (<span id="n_tries">0</span>/6):</p>
+                    
+                    <div class="tries">
+                        <div class="try"></div>
+                        <div class="try"></div>
+                        <div class="try"></div>
+                        <div class="try"></div>
+                        <div class="try"></div>
+                        <div class="try"></div>
+                    </div>
+                </div>
+
+                <div class="mistakes_container">
+                    <p>Mistakes: <span id="mistakes">-</span></p>
+                </div>
+            </article>
+
             <div id="word_input"></div>
 
-            <button class="btn" id="reset_btn">Reset</button>
-            <button class="btn" id="random_btn">Random</button>
+            <div class="btns_container">
+                <button class="btn" id="random_btn">Random</button>
+                <button class="btn" id="reset_btn">Reset</button>
+            </div>
         </section>
     </main>
-    
+
     <script src="resources/js/confetti.js"></script>
     <script src="resources/js/script.js"></script>
 </body>
+
 </html>

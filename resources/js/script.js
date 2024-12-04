@@ -1,14 +1,14 @@
 const words = [
-    "amigo", "viaje", "barco", "tierra", "laguna", "sombra", "bosque", "nieve", "fruta", "ratón",
-    "camino", "fresco", "cocina", "pelota", "fuego", "campo", "bailar", "caballo", "estrella", "torre",
-    "calle", "librar", "hoja", "puente", "selva", "ciudad", "música", "viento", "letras", "corazón",
-    "golpe", "espejo", "huella", "fuerza", "guitarra", "jardín", "saludo", "cuchara", "juntos", "almohada",
-    "pastel", "hermano", "cuento", "playa", "botella", "tormenta", "canción", "valle", "gigante", "planta"
+    "amigo", "viaje", "barco", "tierra", "laguna", "sombra", "bosque", "nieve", "fruta", 
+    "camino", "fresco", "cocina", "pelota", "fuego", "campo", "bailar", "torre", "calle", 
+    "librar", "hoja", "puente", "selva", "viento", "letras", "golpe", "espejo", "huella", 
+    "fuerza", "juntos", "pastel", "hermano", "cuento", "playa", "valle", "planta"
 ]
 
 let playingWord = getRandomWord()
 let unorderedWord = messUpLetters()
-let response = '', win = false
+const maxTries = 6
+let response = '', win = false, tries = 0
 
 window.addEventListener('keyup', checkGame)
 window.addEventListener('keydown', deleteLetter)
@@ -36,6 +36,7 @@ function checkGame(e) {
     }
 
     const key = e.key.toLowerCase()
+    document.activeElement.blur()
     const letters = document.querySelectorAll('.letter')
 
     if (key.length == 1) {
@@ -78,10 +79,19 @@ function deleteLetter(e) {
 }
 
 function checkWin() {
-    if (response == playingWord) {
+    if (compareStringsIgnoreAccents(response, playingWord)) {
         win = true
         confetti.start()
     } else {
+        tries++
+
+        if (tries == maxTries) {
+            restartGame()
+            return
+        }
+
+        drawTries()
+        
         document.querySelector("#word_input").classList.add('incorrect_animation')
 
         setTimeout(() => {
@@ -92,6 +102,8 @@ function checkWin() {
 
 function restartGame() {
     win = false
+    tries = 0
+    drawTries()
     confetti.stop()
     response = ''
     playingWord = getRandomWord()
@@ -110,6 +122,16 @@ function restartWord() {
         } else {
             letters[i].classList.remove('letter_selected')
         }
+    }
+}
+
+function drawTries() {
+    const tryArr = document.querySelectorAll('.try')
+    tryArr.forEach(e => e.classList.remove('marked_try'))
+    document.querySelector('#n_tries').innerHTML = tries
+
+    for (let i = 0; i < tries; i++) {
+        tryArr[i].classList.add('marked_try')
     }
 }
 
@@ -134,4 +156,8 @@ function messUpLetters() {
 function isLetter(letter) {
     const ascii = letter.toUpperCase().charCodeAt(0)
     return ascii > 64 && ascii < 91
+}
+
+function compareStringsIgnoreAccents(str1, str2) {
+    return str1.localeCompare(str2, "es", { sensitivity: "base" }) === 0
 }

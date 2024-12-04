@@ -1,7 +1,7 @@
 const words = [
-    "amigo", "viaje", "barco", "tierra", "laguna", "sombra", "bosque", "nieve", "fruta", 
-    "camino", "fresco", "cocina", "pelota", "fuego", "campo", "bailar", "torre", "calle", 
-    "librar", "hoja", "puente", "selva", "viento", "letras", "golpe", "espejo", "huella", 
+    "amigo", "viaje", "barco", "tierra", "laguna", "sombra", "bosque", "nieve", "fruta",
+    "camino", "fresco", "cocina", "pelota", "fuego", "campo", "bailar", "torre", "calle",
+    "librar", "hoja", "puente", "selva", "viento", "letras", "golpe", "espejo", "huella",
     "fuerza", "juntos", "pastel", "hermano", "cuento", "playa", "valle", "planta"
 ]
 
@@ -16,6 +16,8 @@ document.querySelector("#reset_btn").addEventListener('click', restartWord)
 document.querySelector("#random_btn").addEventListener('click', restartGame)
 printGame()
 
+// Se encarga de mostrar la palabra desordenada y de generar los 
+// inputs necesarios de acuerdo a la cantidad de letras de la palabra
 function printGame() {
     document.querySelector("#word_to_guess").innerHTML = ''
     document.querySelector("#word_input").innerHTML = ''
@@ -29,6 +31,8 @@ function printGame() {
     }
 }
 
+// Se llama con el evento keyup y se encarga de mostrar la letra
+// presionada o de chequar la victoria si se apreta enter
 function checkGame(e) {
     if (win) {
         restartGame()
@@ -56,6 +60,8 @@ function checkGame(e) {
     }
 }
 
+// Se llama con el evento keydown y se encarga de borrar las letras
+// escritas una por una
 function deleteLetter(e) {
     if (win) {
         return
@@ -78,6 +84,8 @@ function deleteLetter(e) {
     }
 }
 
+// Chequea si la palabra es la correcta y, si lo es, muestra la
+// animación de confeti, sino suma un intento
 function checkWin() {
     if (compareStringsIgnoreAccents(response, playingWord)) {
         win = true
@@ -91,7 +99,7 @@ function checkWin() {
         }
 
         drawTries()
-        
+
         document.querySelector("#word_input").classList.add('incorrect_animation')
 
         setTimeout(() => {
@@ -100,6 +108,7 @@ function checkWin() {
     }
 }
 
+// Reinicia todos los valores y selecciona una nueva palabra
 function restartGame() {
     win = false
     tries = 0
@@ -111,6 +120,7 @@ function restartGame() {
     printGame()
 }
 
+// Borra todos los caracteres escritos al presionar el botón restart
 function restartWord() {
     response = ''
     const letters = document.querySelectorAll('.letter')
@@ -125,6 +135,7 @@ function restartWord() {
     }
 }
 
+// Cambia el color de los intentos según la cantidad de fallos
 function drawTries() {
     const tryArr = document.querySelectorAll('.try')
     tryArr.forEach(e => e.classList.remove('marked_try'))
@@ -135,11 +146,13 @@ function drawTries() {
     }
 }
 
+// Obtiene una palabra aleatoria del arreglo words
 function getRandomWord() {
     const r = Math.round(Math.random() * (words.length - 1))
     return words[r]
 }
 
+// Mezcla las letras de la palabra seleccionada
 function messUpLetters() {
     let wordArr = playingWord.split('')
     let res = []
@@ -153,11 +166,13 @@ function messUpLetters() {
     return res
 }
 
+// Chequea si el carácter es una letra
 function isLetter(letter) {
     const ascii = letter.toUpperCase().charCodeAt(0)
     return ascii > 64 && ascii < 91
 }
 
+// Compara dos strings sin considerar acentos
 function compareStringsIgnoreAccents(str1, str2) {
     return str1.localeCompare(str2, "es", { sensitivity: "base" }) === 0
 }
